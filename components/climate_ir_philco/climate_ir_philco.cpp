@@ -183,15 +183,15 @@ void PhilcoClimate::transmit_state() {
       remote_state.data2 = PHILCO_OFF2;
       break;
   }
-  ESP_LOGE(TAG, "Mode: 0x%08" PRIX32, this->mode);
+  //ESP_LOGE(TAG, "Mode: 0x%08" PRIX32, this->mode);
   if (this->mode != climate::CLIMATE_MODE_OFF) {
-    ESP_LOGE(TAG, "Entering Modes");
+    //ESP_LOGE(TAG, "Entering Modes");
     if (this->mode != climate::CLIMATE_MODE_FAN_ONLY) {
       remote_state_low |= PHILCO_TEMP_MIN_CODE + (temp-PHILCO_TEMP_MIN) * PHILCO_TEMP_INCREMENT;
-      ESP_LOGE(TAG, "Temp code_low: 0x%08" PRIX32, remote_state_low);
+      //ESP_LOGE(TAG, "Temp code_low: 0x%08" PRIX32, remote_state_low);
     } else {
       remote_state_low |= PHILCO_FAN_TEMP_CODE;
-      ESP_LOGE(TAG, "Fan Temp code_low: 0x%08" PRIX32, remote_state_low);
+      //ESP_LOGE(TAG, "Fan Temp code_low: 0x%08" PRIX32, remote_state_low);
     }
     if (this->mode == climate::CLIMATE_MODE_HEAT_COOL || this->mode == climate::CLIMATE_MODE_DRY) {
       this->fan_mode = climate::CLIMATE_FAN_AUTO;
@@ -224,19 +224,19 @@ void PhilcoClimate::transmit_state() {
   else {
     remote_state_low |= PHILCO_OFF_TEMP;
     remote_state_high |= PHILCO_COOL;
-    ESP_LOGE(TAG, "Off Temp code_low: 0x%08" PRIX32, remote_state_low);
+    //ESP_LOGE(TAG, "Off Temp code_low: 0x%08" PRIX32, remote_state_low);
   }
-  ESP_LOGE(TAG, "Sending philco code_low: 0x%08" PRIX32, remote_state_low);
-  ESP_LOGE(TAG, "Sending philco code_high: 0x%08" PRIX32, remote_state_high);
+  //ESP_LOGE(TAG, "Sending philco code_low: 0x%08" PRIX32, remote_state_low);
+  //ESP_LOGE(TAG, "Sending philco code_high: 0x%08" PRIX32, remote_state_high);
   remote_state.data = remote_state_high;
   remote_state.data = remote_state.data << 32;
   remote_state.data = remote_state.data | remote_state_low;
-  ESP_LOGE(TAG, "Fan state: 0x%016" PRIX64, remote_state.data);
+  //ESP_LOGE(TAG, "Fan state: 0x%016" PRIX64, remote_state.data);
   remote_state.data2 = remote_state.data2 + ((uint64_t)((swing_state2) + (fan_state2)) << 48);
   remote_state.nbits = 120;
 
-  ESP_LOGE(TAG, "Sending philco code LSB: 0x%016" PRIX64, remote_state.data);
-    ESP_LOGE(TAG, "Sending philco code MSB: 0x%016" PRIX64, remote_state.data2);
+  //ESP_LOGE(TAG, "Sending philco code LSB: 0x%016" PRIX64, remote_state.data);
+    //ESP_LOGE(TAG, "Sending philco code MSB: 0x%016" PRIX64, remote_state.data2);
   this->transmit_<remote_base::PhilcoProtocol>(remote_state);
 }
 

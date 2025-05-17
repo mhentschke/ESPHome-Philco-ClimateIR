@@ -20,10 +20,10 @@ void PhilcoProtocol::encode(RemoteTransmitData *dst, const PhilcoData &data) {
   //for (uint64_t mask = 1ULL << (data.nbits - 1); mask != 0; mask >>= 1) {
   for (uint64_t mask = 1ULL; mask != 0; mask <<= 1) {
     if (data.data & mask) {
-      ESP_LOGE(TAG, "adding bit: 1");
+      //ESP_LOGE(TAG, "adding bit: 1");
       dst->item(BIT_HIGH_US, BIT_ONE_LOW_US);
     } else {
-      ESP_LOGE(TAG, "adding bit: 0");
+      //ESP_LOGE(TAG, "adding bit: 0");
       dst->item(BIT_HIGH_US, BIT_ZERO_LOW_US);
     }
   }
@@ -31,10 +31,10 @@ void PhilcoProtocol::encode(RemoteTransmitData *dst, const PhilcoData &data) {
   for (uint8_t i = 0; i < data.nbits-64; i++) {
     //ESP_LOGE(TAG, "adding bit2 %d %d" , i, data.data2 & mask > 0 ? 1 : 0);
     if(data.data2 & mask) {
-      ESP_LOGE(TAG, "adding bit2 %d: 1", i);
+      //ESP_LOGE(TAG, "adding bit2 %d: 1", i);
       dst->item(BIT_HIGH_US, BIT_ONE_LOW_US);
     } else {
-      ESP_LOGE(TAG, "adding bit2 %d: 0", i);
+      //ESP_LOGE(TAG, "adding bit2 %d: 0", i);
       dst->item(BIT_HIGH_US, BIT_ZERO_LOW_US);
     }
     mask <<= 1;
